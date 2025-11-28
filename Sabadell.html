@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <title>Sabadell</title>
+  <style>
+    html, body { height: 100%; margin: 0; padding: 0; }
+    h1 {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 10px;
+    }
+    #map {
+      height: 90%;
+      width: 100%;
+    }
+  </style>
+
+  <!-- Incloem Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+<body>
+
+  <h1>Sabadell</h1>
+  <div id="map"></div>
+
+  <script>
+    // Coordenades del centre de Sabadell
+    var sabadell = [41.5486, 2.1075];
+
+    // Crear el mapa
+    var map = L.map('map').setView(sabadell, 13);
+
+    // Afegir capa d’OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Afegir marcador
+    L.marker(sabadell).addTo(map)
+      .bindPopup('<b>Sabadell</b><br>Barcelona')
+      .openPopup();
+  </script>
+
+</body>
+</html>
