@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Exercicis DOM - Secció 5 Corregit</title>
+</head>
+<body>
+
+    <h1>Exercicis DOM (Secció 5)</h1>
+
+    <h3>Exercicis 5.1 i 5.2: Anàlisi i Inserció</h3>
+    <div id="zona_paragrafs">
+        <p>Primer paràgraf amb un <a href="http://www.google.com">enllaç extern</a>.</p>
+        <p>Segon paràgraf amb un enllaç a la <a href="http://www.uab.cat">UAB</a>.</p>
+        <p id="p3_ref">Tercer paràgraf que té <a href="http://www.uab.cat">un enllaç</a> i <a href="#">un altre</a>.</p>
+    </div>
+
+    <button onclick="e51a()">5.1a: Num enllaços</button>
+    <button onclick="e51b()">5.1b: Penúltim URL</button>
+    <button onclick="e51c()">5.1c: Enllaços UAB</button>
+    <button onclick="e51d()">5.1d: Enllaços 3r paràgraf</button>
+    <br><br>
+    <button onclick="e52a()">5.2a: Afegir "Hola món" al final</button>
+    <button onclick="e52b()">5.2b: Afegir "Hola món" entre 2n i 3r</button>
+
+    <hr>
+
+    <h3>Exercici 5.3: Llista i Estils</h3>
+    <ul id="llista_exercici">
+        <li>Element 1</li>
+        <li>Element 2</li>
+        <li>Element 3</li>
+    </ul>
+    <button onclick="e53()">Executar 5.3</button>
+
+    <hr>
+
+    <h3>Exercici 5.4: Visibilitat</h3>
+    <p>Aquest text és fix.</p>
+    <p id="paragraf_variable">Aquest és el paràgraf 2 que s'amagarà o mostrarà.</p>
+    
+    <button id="btn_toggle" onclick="e54()">Amagar paràgraf</button>
+
+    <script>
+        // --- EXERCICI 5.1 ---
+        function e51a() {
+            var enllacos = document.getElementsByTagName("a");
+            alert("Número d'enllaços: " + enllacos.length);
+        }
+
+        function e51b() {
+            var enllacos = document.getElementsByTagName("a");
+            if (enllacos.length >= 2) {
+                alert("URL penúltim: " + enllacos[enllacos.length - 2].href);
+            }
+        }
+
+        function e51c() {
+            var enllacos = document.getElementsByTagName("a");
+            var comptador = 0;
+            for (var i = 0; i < enllacos.length; i++) {
+                if (enllacos[i].href.indexOf("uab.cat") != -1) {
+                    comptador++;
+                }
+            }
+            alert("Enllaços a la UAB: " + comptador);
+        }
+
+        function e51d() {
+            var p3 = document.getElementById("p3_ref");
+            var enllacos = p3.getElementsByTagName("a");
+            alert("Enllaços al tercer paràgraf: " + enllacos.length);
+        }
+
+        // --- EXERCICI 5.2 ---
+        function e52a() {
+            var nouP = document.createElement("p");
+            nouP.innerHTML = "Hola món!";
+            document.body.appendChild(nouP);
+        }
+
+        
+        function e52b() {
+            var nouP = document.createElement("p");
+            nouP.innerHTML = "Hola món!";
+            var paragrafs = document.getElementsByTagName("p");
+            
+            
+            var tercerP = paragrafs[2];
+
+            if (tercerP) {
+                tercerP.parentNode.insertBefore(nouP, tercerP);
+            }
+        }
+
+        // --- EXERCICI 5.3 ---
+        function e53() {
+            var llista = document.getElementById("llista_exercici");
+            var elements = llista.getElementsByTagName("li");
+            var nouLi = document.createElement("li");
+            nouLi.innerHTML = "Salve Mundi!";
+            
+            llista.insertBefore(nouLi, elements[elements.length - 1]);
+            llista.style.listStyleType = "none";
+        }
+
+        // --- EXERCICI 5.4 ---
+        function e54() {
+            var p = document.getElementById("paragraf_variable");
+            var boto = document.getElementById("btn_toggle");
+
+            if (p.style.display == "none") {
+                p.style.display = "block";
+                boto.innerHTML = "Amagar paràgraf";
+            } else {
+                p.style.display = "none";
+                boto.innerHTML = "Mostrar paràgraf";
+            }
+        }
+    </script>
+</body>
+</html>

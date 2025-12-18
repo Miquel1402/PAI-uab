@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercicis de Funcions 2</title>
+</head>
+<body>
+
+    <h1>Funcions 2: Resolució d'Exercicis</h1>
+
+    <div>
+        <h2>Exercici 19.3</h2>
+        <button onclick="executarPotencia()">Calcular b^e</button>
+        <p id="resPotencia"></p>
+    </div>
+
+    <div>
+        <h2>Exercici 19.8</h2>
+        <button onclick="executarTraspas()">És de traspàs?</button>
+        <p id="resTraspas"></p>
+    </div>
+
+    <div>
+        <h2>Exercici 19.10</h2>
+        <button onclick="executarPalindrom()">Comprovar palíndrom</button>
+        <p id="resPalindrom"></p>
+    </div>
+
+    <div>
+        <h2>Exercici 19.11</h2>
+        <button onclick="executarCodifica()">Codificar Frase</button>
+        <p id="resCodifica"></p>
+    </div>
+
+    <div>
+        <h2>Exercici 19.12</h2>
+        <button onclick="executarCalculadora()">Operar (Switch)</button>
+        <p id="resCalculadora"></p>
+    </div>
+
+    <div>
+        <h2>Exercici 19.14</h2>
+        <button onclick="executarLlistaPrimers()">Llista de Primers</button>
+        <p id="resLlistaPrimers"></p>
+    </div>
+
+    <div>
+        <h2>Exercici 20.3</h2>
+        <button onclick="executarMultiplicaTaula()">Multiplicar taula x10</button>
+        <p id="resMultiplicaTaula"></p>
+    </div>
+
+    <script>
+        // --- Exercici 19.3 ---
+        function potencia(base, exponent) {
+            return Math.pow(base, exponent);
+        }
+        function executarPotencia() {
+            let b = parseInt(prompt("Base:"));
+            let e = parseInt(prompt("Exponent:"));
+            document.getElementById("resPotencia").innerHTML = b + " elevat a " + e + " és: " + potencia(b, e);
+        }
+
+        // --- Exercici 19.8 ---
+        function esAnyTraspas(any) {
+            return (any % 4 === 0 && any % 100 !== 0) || (any % 400 === 0)[cite_start]; [cite: 720]
+        }
+        function executarTraspas() {
+            let a = parseInt(prompt("Introdueix l'any:"));
+            document.getElementById("resTraspas").innerHTML = "Resultat (Booleà): " + esAnyTraspas(a);
+        }
+
+        // --- Exercici 19.10 ---
+        function esPalindrom(text) {
+            let net = text.toLowerCase().replace(/\s+/g, '');
+            let invertit = net.split('').reverse().join('');
+            return net === invertit;
+        }
+        function executarPalindrom() {
+            let t = prompt("Text a comprovar:");
+            document.getElementById("resPalindrom").innerHTML = "És palíndrom? " + esPalindrom(t);
+        }
+
+        // --- Exercici 19.11 ---
+        function codificarCadena(frase) {
+            [cite_start]let vocals = { 'a': '1', 'e': '2', 'i': '3', 'o': '4', 'u': '5' }; [cite: 736]
+            let paraules = frase.replace(".", "").split(" ");
+            let resultat = paraules.reverse().map(p => {
+                let invertida = p.split("").reverse().join("");
+                return invertida.toLowerCase().split("").map(l => vocals[l] || l).join("");
+            });
+            return resultat.join(" ");
+        }
+        function executarCodifica() {
+            let f = prompt("Frase a codificar:");
+            document.getElementById("resCodifica").innerHTML = codificarCadena(f);
+        }
+
+        // --- Exercici 19.12 ---
+        function calculadora(n1, n2, op) {
+            [cite_start]switch(op) { [cite: 741]
+                case "+": return n1 + n2;
+                case "-": return n1 - n2;
+                case "*": return n1 * n2;
+                case "/": return n1 / n2;
+                case "pot": return Math.pow(n1, n2);
+                default: return "Error";
+            }
+        }
+        function executarCalculadora() {
+            let v1 = parseFloat(prompt("Nombre 1:"));
+            let v2 = parseFloat(prompt("Nombre 2:"));
+            let oper = prompt("Operació (+, -, *, /, pot):");
+            document.getElementById("resCalculadora").innerHTML = "Resultat: " + calculadora(v1, v2, oper);
+        }
+
+        // --- Exercici 19.14 ---
+        [cite_start]function esPrimer(n) { [cite: 746]
+            if (n < 2) return false;
+            [cite_start]for (let i = 2; i <= n / 2; i++) { [cite: 745]
+                if (n % i === 0) return false;
+            }
+            return true;
+        }
+        function taulaPrimers(N) {
+            let primers = [];
+            for (let i = 1; i <= N; i++) {
+                if (esPrimer(i)) primers.push(i);
+            }
+            return primers;
+        }
+        function executarLlistaPrimers() {
+            let n = parseInt(prompt("Nombre N:"));
+            document.getElementById("resLlistaPrimers").innerHTML = "Primers fins a " + n + ": [" + taulaPrimers(n) + "]";
+        }
+
+        // --- Exercici 20.3 ---
+        [cite_start]function multiplicaTaula(t) { [cite: 762]
+            for (let i = 0; i < t.length; i++) {
+                [cite_start]t[i] = t[i] * 10; [cite: 762]
+            }
+        }
+        function executarMultiplicaTaula() {
+            let dades = [2, 5, 8];
+            [cite_start]multiplicaTaula(dades); [cite: 707]
+            document.getElementById("resMultiplicaTaula").innerHTML = "Taula multiplicada: [" + dades + "]";
+        }
+    </script>
+</body>
+</html>

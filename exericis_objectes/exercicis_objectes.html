@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Gestió Logística - Objectes i DOM</title>
+</head>
+<body>
+
+    <h1>Gestió d'Empreses i Paquets</h1>
+
+    <h3>Empreses amb deutes pendents</h3>
+    <button onclick="mostrarDeutes()">Actualitzar Llistat de Deutes</button>
+    <div id="llistaDeutes"></div>
+
+    <hr>
+
+    <h3>Paquets pendents de lliurament</h3>
+    <button onclick="mostrarPaquets()">Actualitzar Llistat de Paquets</button>
+    <div id="llistaPaquets"></div>
+
+    <script>
+        // --- Definició de Classes (Segons apunts) ---
+
+        class Empresa {
+            constructor(nom, adreca) {
+                this.nom = nom;
+                this.adreca = adreca;
+                this.deute = 0;
+            }
+            incrementaDeute(n) {
+                this.deute += n;
+            }
+        }
+
+        class Paquet {
+            constructor(origen, destinacio, cost) {
+                this.origen = origen; // Objecte Empresa
+                this.destinacio = destinacio;
+                this.cost = cost;
+                this.lliurat = false;
+            }
+            lliuramentFet() {
+                this.origen.incrementaDeute(this.cost);
+                this.lliurat = true;
+            }
+        }
+
+        // --- Dades de prova ---
+        let e1 = new Empresa("Logística Vallès", "C/ Major 1");
+        let e2 = new Empresa("Transports Nord", "Av. Bellaterra 5");
+
+        let p1 = new Paquet(e1, "Barcelona", 50);
+        let p2 = new Paquet(e2, "Sabadell", 30);
+        let p3 = new Paquet(e1, "Terrassa", 20);
+
+        // Simulem un lliurament
+        p1.lliuramentFet();
+
+        // Arrays globals per a les funcions
+        let totesLesEmpreses = [e1, e2];
+        let totsElsPaquets = [p1, p2, p3];
+
+        // --- Exercici: Llistat d'empreses amb deutes pendents ---
+        function mostrarDeutes() {
+            let contenidor = document.getElementById("llistaDeutes");
+            let html = "<ul>";
+            
+            for (let i = 0; i < totesLesEmpreses.length; i++) {
+                if (totesLesEmpreses[i].deute > 0) {
+                    html += "<li>Empresa: " + totesLesEmpreses[i].nom + 
+                            " | Deute: " + totesLesEmpreses[i].deute + "€</li>";
+                }
+            }
+            
+            html += "</ul>";
+            contenidor.innerHTML = html;
+        }
+
+        // --- Exercici: Llistat de paquets pendents ---
+        // Inclou: nom empresa origen, nom empresa final (destinació) i cost
+        function mostrarPaquets() {
+            let contenidor = document.getElementById("llistaPaquets");
+            let html = "<ul>";
+            
+            for (let i = 0; i < totsElsPaquets.length; i++) {
+                let p = totsElsPaquets[i];
+                if (p.lliurat === false) {
+                    html += "<li>Origen: " + p.origen.nom + 
+                            " | Destinació: " + p.destinacio + 
+                            " | Cost: " + p.cost + "€</li>";
+                }
+            }
+            
+            html += "</ul>";
+            contenidor.innerHTML = html;
+        }
+    </script>
+</body>
+</html>

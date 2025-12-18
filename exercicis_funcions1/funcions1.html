@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercicis de Funcions - Bloc 3</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; padding: 20px; }
+        .exercici { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; }
+        h2 { margin-top: 0; color: #2c3e50; }
+        .resultat { background: #f4f4f4; padding: 10px; font-weight: bold; color: #e67e22; }
+    </style>
+</head>
+<body>
+
+    <h1>Exercicis de Funcions</h1>
+
+    <div class="exercici">
+        <h2>Exercici 3.1</h2>
+        <button onclick="executar31()">Parell o Imparell</button>
+        <p id="res31" class="resultat">Esperant dades...</p>
+    </div>
+
+    <div class="exercici">
+        <h2>Exercici 3.2</h2>
+        <button onclick="executar32()">Any de Traspàs</button>
+        <p id="res32" class="resultat">Esperant dades...</p>
+    </div>
+
+    <div class="exercici">
+        <h2>Exercici 3.3</h2>
+        <button onclick="executar33()">Sumatòria</button>
+        <p id="res33" class="resultat">Esperant dades...</p>
+    </div>
+
+    <div class="exercici">
+        <h2>Exercici 3.4</h2>
+        <button onclick="executar34()">Nota Final</button>
+        <p id="res34" class="resultat">Esperant dades...</p>
+    </div>
+
+    <div class="exercici">
+        <h2>Exercici 3.5 i 3.6</h2>
+        <button onclick="executar356()">Comptar paraules (mida N)</button>
+        <p id="res356" class="resultat">Esperant dades...</p>
+    </div>
+
+    <div class="exercici">
+        <h2>Exercici 3.7</h2>
+        <button onclick="executar37()">Taula de freqüències</button>
+        <p id="res37" class="resultat">Esperant dades...</p>
+    </div>
+
+    <script>
+        // --- Exercici 3.1 ---
+        function esParell(num) {
+            if (num % 2 === 0) return "parell";
+            else return "imparell";
+        }
+        function executar31() {
+            let n = parseInt(prompt("Introdueix un nombre enter:"));
+            document.getElementById("res31").innerHTML = "El número " + n + " és " + esParell(n);
+        }
+
+        // --- Exercici 3.2 ---
+        function esTraspas(any) {
+            if ((any % 4 === 0 && any % 100 !== 0) || (any % 400 === 0)) return true;
+            return false;
+        }
+        function executar32() {
+            let any = parseInt(prompt("Introdueix un any:"));
+            let text = esTraspas(any) ? "és de traspàs" : "no és de traspàs";
+            document.getElementById("res32").innerHTML = "L'any " + any + " " + text;
+        }
+
+        // --- Exercici 3.3 ---
+        function sumatoriaN(N) {
+            let suma = 0;
+            for (let n = 1; n <= N; n++) {
+                suma += (1 / (n * n));
+            }
+            return suma;
+        }
+        function executar33() {
+            let N = parseInt(prompt("Introdueix el valor de N:"));
+            document.getElementById("res33").innerHTML = "∑ (1/n²) per N=" + N + " és " + sumatoriaN(N).toFixed(6);
+        }
+
+        // --- Exercici 3.4 ---
+        function calcularNotaFinal(ac, pract, exam) {
+            let final;
+            if (ac >= 5) {
+                final = (0.2 * ac) + (0.4 * pract) + (0.4 * exam);
+            } else {
+                final = (0.4 * pract) + (0.6 * exam);
+            }
+
+            let lletra = "";
+            if (final === 10) lletra = "H";
+            else if (final >= 8) lletra = "A";
+            else if (final >= 6.5) lletra = "B";
+            else if (final >= 5) lletra = "C";
+            else lletra = "D";
+
+            return final.toFixed(2) + " " + lletra;
+        }
+        function executar34() {
+            let ac = parseFloat(prompt("Nota AC:"));
+            let p = parseFloat(prompt("Nota Pràctiques:"));
+            let e = parseFloat(prompt("Nota Examen:"));
+            document.getElementById("res34").innerHTML = "Nota: " + calcularNotaFinal(ac, p, e);
+        }
+
+        // --- Exercici 3.5 i 3.6 ---
+        function comptarParaulesMida(frase, mida) {
+            let paraules = 0;
+            let lletresActuals = 0;
+            for (let i = 0; i < frase.length; i++) {
+                let caracter = frase[i];
+                if (caracter === " " || caracter === "," || caracter === ".") {
+                    if (lletresActuals === mida) paraules++;
+                    lletresActuals = 0;
+                } else {
+                    lletresActuals++;
+                }
+            }
+            return paraules;
+        }
+        function executar356() {
+            let f = prompt("Introdueix la frase:");
+            let m = parseInt(prompt("Mida de la paraula a cercar:"));
+            document.getElementById("res356").innerHTML = "Resultat: " + comptarParaulesMida(f, m) + " paraules";
+        }
+
+        // --- Exercici 3.7 ---
+        function frequenciaLongituds(frase) {
+            let resultats = [0, 0, 0, 0, 0, 0, 0, 0]; 
+            let lletresActuals = 0;
+            for (let i = 0; i < frase.length; i++) {
+                let c = frase[i];
+                if (c === " " || c === "," || c === ".") {
+                    if (lletresActuals >= 1 && lletresActuals <= 7) {
+                        resultats[lletresActuals]++;
+                    }
+                    lletresActuals = 0;
+                } else {
+                    lletresActuals++;
+                }
+            }
+            return resultats;
+        }
+        function executar37() {
+            let f = prompt("Frase per analitzar (1-7 lletres):");
+            let taula = frequenciaLongituds(f);
+            let text = "";
+            for (let j = 1; j <= 7; j++) {
+                text += j + " lletres: " + taula[j] + " | ";
+            }
+            document.getElementById("res37").innerHTML = text;
+        }
+    </script>
+</body>
+</html>

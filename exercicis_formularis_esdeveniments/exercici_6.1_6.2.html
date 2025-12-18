@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Exercicis 6.1, 6.2 i 6.3</title>
+</head>
+<body onload="document.getElementById('email').focus()">
+
+    <h3>Formulari i</h3>
+    <form name="f1">
+        First name:<br>
+        <input type="text" id="fname"><br>
+        Last name:<br>
+        <input type="text" id="lname"><br>
+        Email:<br>
+        <input type="text" id="email"><br>
+        <button type="button" id="btn1" onclick="executarF1()">Enviar formulari i</button>
+    </form>
+    <div id="missatge"></div>
+
+    <hr>
+
+    <h3>Formulari ii</h3>
+    <form name="f2">
+        <input type="radio" name="r1" value="Si" checked> Si<br>
+        <input type="radio" name="r1" value="No"> No<br>
+        <input type="radio" name="r1" value="NS/NC"> NS/NC<br>
+        <button type="button" onclick="executarF2()">Enviar formulari ii</button>
+    </form>
+
+    <hr>
+
+    <h3>Formulari iii</h3>
+    <form name="f3">
+        <input type="checkbox" name="c1" value="Si" checked> Si<br>
+        <input type="checkbox" name="c1" value="No"> No<br>
+        <button type="button" onclick="executarF3()">Enviar formulari iii</button>
+    </form>
+
+    <hr>
+
+    <h3>Formulari iv</h3>
+    <form name="f4">
+        <select id="s1">
+            <option value="Si" selected>Si</option>
+            <option value="No">No</option>
+            <option value="NS/NC">NS/NC</option>
+        </select><br>
+        <button type="button" onclick="executarF4()">Enviar formulari iv</button>
+    </form>
+
+    <script>
+        // Exercici 6.2 i 6.3
+        function executarF1() {
+            var n = document.getElementById("fname").value;
+            var c = document.getElementById("lname").value;
+            var e = document.getElementById("email").value;
+
+            // Exercici 6.3b:
+            if (e.indexOf("@") == -1) {
+                alert("El correu no és vàlid");
+                document.getElementById("email").value = "";
+            } else {
+                // Exercici 6.2a: 
+                console.log("Nom: " + n);
+                console.log("Cognom: " + c);
+                
+                // Exercici 6.3c: Missatge sota el formulari i desactivar botó
+                document.getElementById("missatge").innerHTML = "Processant la seva petició";
+                document.getElementById("btn1").disabled = true;
+            }
+        }
+
+        function executarF2() {
+            // Exercici 6.2b:
+            var opcions = document.getElementsByName("r1");
+            for (var i = 0; i < opcions.length; i++) {
+                if (opcions[i].checked) {
+                    console.log("Seleccionat: " + opcions[i].value);
+                }
+            }
+        }
+
+        function executarF3() {
+            // Exercici 6.2c: 
+            var opcions = document.getElementsByName("c1");
+            for (var i = 0; i < opcions.length; i++) {
+                if (opcions[i].checked) {
+                    console.log("Checked: " + opcions[i].value);
+                }
+            }
+        }
+
+        function executarF4() {
+            // Exercici 6.2d: 
+            var llista = document.getElementById("s1");
+            console.log("Tercer element: " + llista.options[2].value);
+        }
+    </script>
+</body>
+</html>

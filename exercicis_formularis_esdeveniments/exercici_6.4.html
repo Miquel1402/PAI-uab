@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Exercici 6.4</title>
+</head>
+<body>
+    <h1>Exercici 6.4</h1>
+    
+    <p><a href="#" id="enllacJS" onclick="toggleText()">JavaScript</a></p>
+    
+    <p id="paragrafJS">JavaScript® (tot sovint abreujat com a JS) és un llenguatge
+    orientat a objectes, lleuger i interpretat, amb funcions de primera
+    classe, més conegut per ser el llenguatge d'scripting per a pàgines
+    Web, però també utilitzat en molts àmbits fora d'un navegador web com
+    ara node.js o Apache CouchDB. 
+    Es tracta d'un llenguatge d'scripting multi-paradigma, basat en prototipus, 
+    que és dinamic i suporta estils de programació funcional, imperativa 
+    i orientada a objectes.</p>
+
+    <script>
+        function toggleText() {
+            var p = document.getElementById("paragrafJS");
+            var a = document.getElementById("enllacJS");
+
+            if (p.style.display === "none") {
+                p.style.display = "block";
+                a.innerHTML = "JavaScript";
+            } else {
+                p.style.display = "none";
+                a.innerHTML = "Prem per veure";
+            }
+        }
+    </script>
+</body>
+</html>
